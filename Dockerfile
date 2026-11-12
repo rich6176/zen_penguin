@@ -14,4 +14,4 @@ COPY zen_penguin.json config.exs ./
 
 RUN mix compile
 
-ENTRYPOINT ["mix", "run", "--no-deps-check", "-e", "ZenPenguin.CLI.main([])"]
+ENTRYPOINT ["elixir", "-pa", "/action/_build/prod/lib/zen_penguin/ebin", "-e", "ZenPenguin.CLI.main([])"]
