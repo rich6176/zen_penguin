@@ -4,12 +4,14 @@ WORKDIR /action
 
 ENV MIX_ENV=prod
 
-COPY mix.exs ./
+COPY mix.exs mix.lock ./
+RUN mix local.hex --force && mix deps.get --only prod
+
 COPY lib lib
 COPY templates templates
 COPY maps maps
 COPY zen_penguin.json config.exs ./
 
-RUN mix compile --no-deps-check
+RUN mix compile
 
 ENTRYPOINT ["mix", "run", "--no-deps-check", "-e", "ZenPenguin.CLI.main([])"]
