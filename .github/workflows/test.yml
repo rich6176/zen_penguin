@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.20.5"
+          otp-version: "29"
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Credo
+        run: mix credo --strict
+
+      - name: Dependency audit
+        run: mix deps.audit
+
+      - name: Test with coverage
+        run: mix test --cover
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan commits for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render the local action
+        uses: ./
+        with:
+          variables: |
+            env=dev
+            junkyard=san-antonio
+          output: config
+
+      - name: Check the rendered files
+        run: |
+          grep -q 'log_level: debug' config/junkyard.yaml
+          grep -q 'https://san-antonio-dev.example.internal' config/junkyard.yaml
+          grep -q 'junkyard: san-antonio' config/junkyard.yaml
+          grep -q 'region: south' config/junkyard.yaml
+          grep -q 'item: p1' config/junkyard.yaml
+          grep -q 'aws_secret: null' config/junkyard.yaml
+          grep -q p1 config/items.txt

@@ -1,0 +1,20 @@
+# Elixir
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+/.hex
+erl_crash.dump
+*.ez
+*.beam
+
+# Editor and local tools
+.elixir_ls/
+.expert/
+.idea/
+*.swp
+
+# Secrets and local env
+.env
+.env.*

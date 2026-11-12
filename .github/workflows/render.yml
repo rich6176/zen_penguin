@@ -1,0 +1,39 @@
+name: Render
+
+on:
+  workflow_call:
+    inputs:
+      env:
+        description: Selected environment. The template reads it as @env.
+        required: true
+        type: string
+      junkyard:
+        description: Selected junkyard. The template reads it as @junkyard.
+        required: true
+        type: string
+      output:
+        description: Directory for the rendered files
+        required: true
+        type: string
+    outputs:
+      config-paths:
+        description: Workspace-relative paths of the written files
+        value: ${{ jobs.render.outputs.config-paths }}
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.junkyard }}-${{ inputs.env }}
+    outputs:
+      config-paths: ${{ steps.render.outputs.config-paths }}
+    steps:
+      - name: Render configuration
+        id: render
+        uses: $/
+        with:
+          variables: |
+            env=${{ inputs.env }}
+            junkyard=${{ inputs.junkyard }}
+          output: ${{ inputs.output }}
+        env:
+          AWS_SECRET: ${{ secrets.AWS_SECRET }}

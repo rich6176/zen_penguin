@@ -1,0 +1,5 @@
+{
+  "items": [{"code": "p1"}, {"code": "p2"}],
+  "service": {"region": "south"},
+  "aws_secret": {"$secret": "AWS_SECRET"}
+}

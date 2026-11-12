@@ -1,0 +1,21 @@
+{
+	"defaults_files": [
+		{ "namespace": "zp.defaults", "file": "maps/defaults.json" }
+	],
+	"env_files": [
+		{ "namespace": "zp.local", "file": "maps/envs/local.json" },
+		{ "namespace": "zp.dev", "file": "maps/envs/dev.json" },
+		{ "namespace": "zp.test", "file": "maps/envs/test.json" },
+		{ "namespace": "zp.prod", "file": "maps/envs/prod.json" }
+	],
+	"junkyard_files": [
+		{ "namespace": "zp.local.san-antonio", "file": "maps/junkyards/local/san-antonio.json" },
+		{ "namespace": "zp.local.chicago", "file": "maps/junkyards/local/chicago.json" },
+		{ "namespace": "zp.dev.san-antonio", "file": "maps/junkyards/dev/san-antonio.json" },
+		{ "namespace": "zp.dev.chicago", "file": "maps/junkyards/dev/chicago.json" },
+		{ "namespace": "zp.test.san-antonio", "file": "maps/junkyards/test/san-antonio.json" },
+		{ "namespace": "zp.test.chicago", "file": "maps/junkyards/test/chicago.json" },
+		{ "namespace": "zp.prod.san-antonio", "file": "maps/junkyards/prod/san-antonio.json" },
+		{ "namespace": "zp.prod.chicago", "file": "maps/junkyards/prod/chicago.json" }
+	]
+}

@@ -1,0 +1,3 @@
+<% output "items.txt" %>
+<%= for item <- fetch("zp.defaults.items") do %><%= item["code"] %>
+<% end %>

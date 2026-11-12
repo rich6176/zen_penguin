@@ -1,0 +1,15 @@
+name: Zen Penguin
+description: Load namespaced map files and render trusted EEx templates into the workspace. Templates are Elixir and run with the job's privileges.
+inputs:
+  variables:
+    description: env and junkyard as KEY=VALUE lines or a JSON object.
+    required: true
+  output:
+    description: Directory under the workspace where templates write their files.
+    required: true
+outputs:
+  config-paths:
+    description: Workspace-relative paths of the written files, one per line.
+runs:
+  using: docker
+  image: Dockerfile

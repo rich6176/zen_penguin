@@ -1,0 +1,8 @@
+<% output "junkyard.yaml" %>
+service_url: <%= fetch("zp." <> @env <> "." <> @junkyard <> ".service_url") %>
+log_level: <%= fetch("zp." <> @env <> ".log_level") %>
+junkyard: <%= fetch("zp." <> @env <> "." <> @junkyard <> ".junkyard_code") %>
+region: <%= fetch("zp.defaults.service.region") %>
+<%= for item <- fetch("zp.defaults.items") do %>item: <%= item["code"] %>
+<% end %>
+aws_secret: <%= fetch("zp.defaults.aws_secret") %>
